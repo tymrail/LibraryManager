@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ active_menu }}</title>
+    <script>
+        console.log('{{ book_list }}');
+    </script>
+</head>
+<body>
+    {% for content in book_content %}
+        <div>
+            <p>title {{ content.book_info.title }}</p>
+            <p>isbn {{ content.book_info.isbn }}</p>
+            <p>Price {{ content.book_info.Price }}</p>
+            <p>date {{ content.book_info.publish_date}}</p>
+            <p>publisher {{ content.book_info.publisher }}</p>
+            <div>
+            {% for ath in content.authors_info %}
+                <p>name: {{ ath.name }}</p>
+                <p>age: {{ ath.age }}</p>
+                <p>country: {{ ath.country }}</p>
+            {% endfor %}
+            </div>
+        </div>
+        </br>
+    {% endfor %}
+</body>
+</html>

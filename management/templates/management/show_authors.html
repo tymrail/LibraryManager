@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ active_menu }}</title>
+</head>
+<body>
+    {% for author in authors %}
+        <div class="show" style="width: 100%">
+            <p>{{ author.author_id }} | {{ author.name }} | {{ author.age }} | {{ author.country }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>

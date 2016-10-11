@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ active_menu }}</title>
+    <script>
+        console.log('{{ book_content }}');
+    </script>
+</head>
+<body>
+    {{ state }}
+
+    <div>
+        {{ book_content.book.title }} | {{ book_content.book.Price }} | {{ book_content.book.publish_date }}<br>
+        {% for author in book_content.authors %}
+            {{ author.name }} | {{ author.age }} | {{ author.country }}<br>
+        {% endfor %}
+    </div>
+</body>
+</html>

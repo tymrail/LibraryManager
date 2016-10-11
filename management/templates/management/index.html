@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ active_menu }}</title>
+    <script>
+        console.log('{{ author_content.books }}');
+    </script>
+</head>
+<body>
+    <div>Welcome To Library Manager</div>
+    <div class="search_banner">
+        <form method="post" role="search">
+            {% csrf_token %}
+            <div class="search_book">
+                <label for="id_search_book">Search book</label>
+                <input type="search" id="id_search_book" name="search_book">
+            </div>
+            <div class="search_author">
+                <label for="id_search_author">Search author</label>
+                <input type="search" id="id_search_author" name="search_author">
+            </div>
+            <button type="submit">submit</button>
+        </form>
+    </div>
+    <div class="show_banner">
+        {% if state == 'show_recent' %}
+            {% for book in book_content %}
+                <div>
+                    <a href="/show_book_detail?book_isbn={{ book.book_info.isbn }}">{{ book.book_info.title }}</a>
+                    | {{ book.book_info.isbn }} | {{ book.book_info.publisher }} | {{ book.book_info.publish_date }} | {{ book.book_info.Price }}
+                    {% for author in book.authors_info %}
+                        {{ author.name }} | {{ author.age }} | {{ author.country }}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% elif state == 'search_book_success'%}
+            {% for book in book_content %}
+                <a href="/show_book_detail?book_isbn={{ book.book_info.isbn }}">{{ book.book_info.title }}</a>
+                 | {{ book.book_info.isbn }} | {{ book.book_info.publisher }} | {{ book.book_info.publish_date }} | {{ book.book_info.Price }}
+                    {% for author in book.authors_info %}
+                        {{ author.name }} | {{ author.age }} | {{ author.country }}
+                    {% endfor %}
+                <br>
+            {% endfor %}
+        {% elif state == 'search_author_success' %}
+            {% for author in author_content %}
+                <a href="/show_author_detail?author_id={{ author.author.author_id }}">{{ author.author.name }} </a>
+                | {{ author.author.age }} | {{ author.author.country }} <br>
+                {% for book in author.books %}
+                    {{ book.title }} | {{ book.isbn }} | {{ book.Price }} <br>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>
