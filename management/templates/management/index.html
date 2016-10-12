@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ active_menu }}</title>
-    <script>
-        console.log('{{ author_content.books }}');
-    </script>
 </head>
 <body>
     <div>Welcome To Library Manager</div>
@@ -23,6 +20,14 @@
             <button type="submit">submit</button>
         </form>
     </div>
+
+    <div>
+        <a href="/show_book/">all books</a>
+        <a href="/show_authors/">all authors</a>
+        <a href="/add_book/">add book</a>
+        <a href="/add_author/">add author</a>
+    </div>
+
     <div class="show_banner">
         {% if state == 'show_recent' %}
             {% for book in book_content %}
