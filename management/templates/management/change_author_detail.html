@@ -2,9 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{ active_menu }}</title>
+    <script>
+        console.log('{{ author_content }}')
+    </script>
 </head>
 <body>
+    <div style="width: 100%;">
+        <h1>Change author detail here</h1>
+    </div>
 
+    {% if state == 'success' %}
+    <div style="width: 100%;">Changed success!!!!!</div>
+    {% endif %}
+
+    <div class="add_author">
+        <form method="get" action="/change_author_detail/" role="form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_id" class="col-md-3 control-label">Name：</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" id="id_id" required name="author_id" readonly value="{{ author_content.author_id }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="id_name" class="col-md-3 control-label">Name：</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" id="id_name" required name="new_name" autofocus value="{{ author_content.name }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="author_age" class="col-md-3 control-label">Age：</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" required name="new_age" id="author_age" value="{{ author_content.age }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="country" class="col-md-3 control-label">Country：</label>
+                <div class="col-md-9">
+                    <input type="text" class="form-control" required name="new_country" id="country" value="{{ author_content.country }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn btn-primary btn-block" type="submit">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^show_book/$', management_views.show_book),
     url(r'^show_book_detail/$', management_views.show_book_detail),
     url(r'^show_author_detail/$', management_views.show_author_detail),
+    url(r'^change_author_detail/$', management_views.change_author_detail),
+    url(r'^change_book_detail/$', management_views.change_book_detail),
     url(r'^$', management_views.index),
 ]
 

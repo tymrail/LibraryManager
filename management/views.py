@@ -106,33 +106,43 @@ def show_author_detail(request):
 def change_book_detail(request):
     state = None
     book_content = None
-    if request.method == 'POST':
-        operate = request.POST.get('operate', '')
-        old_isbn = request.POST.get('isbn', '')
-        if operate == 'send':
-            book = Book.objects.filter(isbn__exact=old_isbn)
-            authors = Author.objects.filter(book__isbn__exact=old_isbn)
-            book_content = {'book': book, 'authors': authors}
-            state = 'changing'
-        else:
-            book = Book.objects.get(isbn__exact=old_isbn)
-            new_authors = request.POST.getlist('new_author_ids')
-            book.author_ids.clear()
-            for new_author in new_authors:
-                book.author_ids.add(new_author)
-            Book.objects.filter(isbn__exact=old_isbn).update(
-                isbn=request.POST.get('isbn', ''),
-                title=request.POST.get('title', ''),
-                publisher=request.POST.get('publisher', ''),
-                publish_date=request.POST.get('publish_date', ''),
-                Price=request.POST.get('Price', 0),
-            )
-            state = 'success'
+    all_author = None
+    if request.method == 'GET':
+        isbn = request.GET.get('isbn')
+        book = Book.objects.filter(isbn__exact=isbn)
+
+        if request.GET.get('new_title'):
+            book.update(title=request.GET.get('new_title'))
+
+        if request.GET.get('new_publisher'):
+            book.update(publisher=request.GET.get('new_publisher'))
+
+        if request.GET.get('new_publish_date'):
+            book.update(publish_date=request.GET.get('new_publish_date'))
+
+        if request.GET.get('new_Price'):
+            book.update(Price=request.GET.get('new_Price'))
+
+        if request.GET.getlist('new_authors'):
+            book_exact = book[0]
+            book_exact.author_ids.clear()
+            for new_author in request.GET.getlist('new_authors'):
+                book_exact.author_ids.add(new_author)
+
+        book_info = Book.objects.get(isbn__exact=isbn)
+        book_authors = Author.objects.filter(book__isbn__exact=isbn)
+        book_content = {
+            'book_info': book_info,
+            'book_authors': book_authors,
+        }
+
+        all_author = Author.objects.all()
 
     content = {
-        'active_menu': 'add_book',
+        'active_menu': 'change_book_detail',
         'state': state,
         'book_content': book_content,
+        'all_author': all_author,
     }
 
     return render(request, 'management/change_book_detail.html', content)
@@ -141,21 +151,20 @@ def change_book_detail(request):
 def change_author_detail(request):
     state = None
     author_content = None
-    if request.method == 'POST':
-        operate = request.POST.get('operate', '')
-        author_id = request.POST.get('author_id', '')
+
+    if request.method == 'GET':
+        author_id = request.GET.get('author_id')
         author = Author.objects.filter(author_id__exact=author_id)
-        if operate == 'send':
-            author_content = author
-            state = 'changing'
-        else:
-            author.update(
-                name=request.POST.get('new_name', ''),
-                age=request.POST.get('new_age', ''),
-                country=request.POST.get('new_country', ''),
-            )
-            author_content = author
+        if request.GET.get('new_name'):
+            author.update(name=request.GET.get('new_name'))
             state = 'success'
+        if request.GET.get('new_age'):
+            author.update(age=request.GET.get('new_age'))
+            state = 'success'
+        if request.GET.get('new_country'):
+            author.update(country=request.GET.get('new_country'))
+            state = 'success'
+        author_content = Author.objects.filter(author_id__exact=author_id)[0]
 
     content = {
         'active_menu': 'add_book',
