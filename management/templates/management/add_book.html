@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ active_menu }}</title>
-</head>
-<body>
+{% extends "management/basic.html" %}
+{% block title %}添加图书{% endblock %}
+
+{% block content %}
+<div class="main-content">
 
     {% if state == 'success' %}
     <div style="width: 100%;">Added success!!!!!</div>
@@ -65,8 +63,8 @@
 
         </form>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}
 
 {#    isbn = models.CharField(primary_key=True, max_length=13)#}
 {#    title = models.CharField(max_length=99)#}

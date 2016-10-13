@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ active_menu }}</title>
-    <script>
-        console.log('{{ book_content }}');
-    </script>
-</head>
-<body>
+{% extends "management/basic.html" %}
+{% block title %}添加图书{% endblock %}
+{% block content %}
+<div class="main-content">
     {{ state }}
 
     <div>
@@ -16,5 +10,5 @@
             {{ author.name }} | {{ author.age }} | {{ author.country }}<br>
         {% endfor %}
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

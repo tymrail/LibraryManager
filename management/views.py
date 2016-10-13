@@ -7,14 +7,14 @@ def index(request):
     book_content = []
     author_content = []
     if request.method == 'POST':
-        if request.POST['search_book']:
+        if request.POST.get('search_book'):
             search_title = request.POST.get('search_book', '')
             book_search_result = Book.objects.filter(title__iexact=search_title)
             for book in book_search_result:
                 book_content_temp = {'book_info': book, 'authors_info': Author.objects.filter(book__title=book.title)}
                 book_content.append(book_content_temp)
             state = 'search_book_success'
-        elif request.POST['search_author']:
+        elif request.POST.get('search_author'):
             search_name = request.POST.get('search_author', '')
             authors = Author.objects.filter(name__iexact=search_name)
             author_ids = authors.values('author_id')
@@ -67,10 +67,15 @@ def add_author(request):
 
 def show_authors(request):
     authors = Author.objects.all().order_by('name')
-
+    author_content = []
+    for author in authors:
+        author_content.append({
+            'author': author,
+            'books': Book.objects.filter(author_ids__author_id__exact=author.author_id)
+        })
     content = {
         'active_menu': 'show_author',
-        'authors': authors,
+        'author_content': author_content,
     }
     return render(request, 'management/show_authors.html', content)
 

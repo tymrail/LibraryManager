@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ active_menu }}</title>
-    <script>
-        console.log('{{ author_content }}')
-    </script>
-</head>
-<body>
+{% extends "management/basic.html" %}
+{% block title %}添加图书{% endblock %}
+
+<div class="main-content">
     <div style="width: 100%;">
         <h1>Change author detail here</h1>
     </div>
@@ -54,5 +48,4 @@
             </div>
         </form>
     </div>
-</body>
-</html>
+</div>

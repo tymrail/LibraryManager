@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ active_menu }}</title>
+{% extends "management/basic.html" %}
+{% block title %}添加图书{% endblock %}
 
-    <script>
-        console.log('{{ book_content.book_authors }}');
-        console.log('{{ all_author }}');
-    </script>
-</head>
-<body>
+<div class="main-content">
 
     {% if state == 'success' %}
     <div style="width: 100%;">Added success!!!!!</div>
@@ -73,5 +65,4 @@
 
         </form>
     </div>
-</body>
-</html>
+</div>

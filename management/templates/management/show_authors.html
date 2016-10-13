@@ -1,14 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ active_menu }}</title>
-</head>
-<body>
-    {% for author in authors %}
-        <div class="show" style="width: 100%">
-            <p>{{ author.author_id }} | {{ author.name }} | {{ author.age }} | {{ author.country }}</p>
+{% extends "management/basic.html" %}
+{% block title %}添加图书{% endblock %}
+
+{% block content %}
+<div class="main-content">
+            <div class="fluid-container">
+
+                <div class="content-wrapper">
+                    <!-- PROJECTS -->
+                    <div class="page-section" id="book_recent" style="padding-top: 20px">
+                            <h4 class="widget-title" style="padding-top: 3em; padding-bottom: 3em">
+                                Search Author Result
+                            </h4>
+                            <div class="row" id="book_row">
+                            <div class="book_detail">
+                                <div class="row">
+                                    <div class="col-md-2 book_usual">Name</div>
+                                    <div class="col-md-1 book_usual">Age</div>
+                                    <div class="col-md-2 book_usual">Country</div>
+                                    <div class="col-md-7 book_usual">Book</div>
+                                </div>
+                            </div>
+                            {% for author in author_content %}
+                                <div class="book_detail">
+                                    <div class="row">
+                                        <div class="col-md-2 book_usual">
+                                            <a href="/show_author_detail?author_id={{ author.author.author_id }}">
+                                                {{ author.author.name }}
+                                            </a>
+                                        </div>
+                                        <div class="col-md-1 book_usual">{{ author.author.age }}</div>
+                                        <div class="col-md-2 book_usual">{{ author.author.country }}</div>
+                                        <div class="col-md-7 book_usual">
+                                            <p>
+                                                {% for book in author.books %}
+                                                    <a href="/show_book_detail?book_isbn={{ book.isbn }}">
+                                                        《{{ book.title }}》
+                                                    </a>
+                                                {% endfor %}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        <hr>
+                    </div>
+
+                    <div class="page-section" id="book_recent" style="padding-top: 20px">
+                        <div class="row" id="footer">
+                            <div class="col-md-12 text-center">HIT @<a href="tymrail.com">TymRail</a></div>
+                        </div>
+                    </div>
+
+            </div>
         </div>
-    {% endfor %}
-</body>
-</html>
+    </div>
+{% endblock %}

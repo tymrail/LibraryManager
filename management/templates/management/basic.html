@@ -1,0 +1,74 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{{ active_menu }}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/templatemo-style.css' %}">
+        <script src="{% static 'js/vendor/modernizr-2.6.2.min.js' %}"></script>
+        <style>
+            .active{
+                background: #5F6D91;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="responsive-header visible-xs visible-sm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="top-section">
+                            <div class="profile-content">
+                                <h3 class="profile-title">Library Manager</h3>
+                                <p class="profile-description">
+                                    In action how like an Angel. &nbsp In apprehension how like a God.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="toggle-menu"><i class="fa fa-bars"></i></a>
+                <div class="main-navigation responsive-menu">
+                    <ul>
+                        <li><a href="/show_book/"><i class="fa fa-book"></i>all books</a></li>
+                        <li><a href="/show_authors/"><i class="fa fa-user"></i>all authors</a></li>
+                        <li><a href="/add_book/"><i class="fa fa-newspaper-o"></i>add book</a></li>
+                        <li><a href="/add_author/"><i class="fa fa-envelope"></i>add author</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="sidebar-menu hidden-xs hidden-sm">
+            <div class="top-section">
+                <h3 class="profile-title">Library Manager</h3>
+            </div> <!-- top-section -->
+            <div class="main-navigation">
+                <ul>
+                    <li id="index"><a href="/"><i class="fa fa-home"></i>Home</a></li>
+                    <li id="show_book"><a href="/show_book/"><i class="fa fa-book"></i>All Books</a></li>
+                    <li id="show_author"><a href="/show_authors/"><i class="fa fa-users"></i>All Authors</a></li>
+                    <li id="add_book"><a href="/add_book/"><i class="fa fa-edit"></i>Add Book</a></li>
+                    <li id="add_author"><a href="/add_author/"><i class="fa fa-user"></i>Add Author</a></li>
+                </ul>
+            </div> <!-- .main-navigation -->
+        </div> <!-- .sidebar-menu -->
+
+        {% block content %}{% endblock %}
+
+        <script src="{% static 'js/vendor/jquery-1.10.2.min.js' %}"></script>
+        <script src="{% static 'js/min/plugins.min.js' %}"></script>
+        <script src="{% static 'js/min/main.min.js' %}"></script>
+        <script type="text/javascript">
+            $('#{{active_menu}}').addClass("active");
+        </script>
+    </body>
+</html>

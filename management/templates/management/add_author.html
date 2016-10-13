@@ -1,50 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ active_menu }}</title>
-</head>
-<body>
-    <div style="width: 100%;">
-        <h1>Add author here</h1>
+{% extends "management/basic.html" %}
+{% block title %}添加图书{% endblock %}
+
+{% block content %}
+
+
+<div class="main-content">
+    <div class="fluid-container">
+        <div class="content-wrapper" style="margin-top: 10em">
+            <div class="page-section" id="contact">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="widget-title">Add Author Here</h4>
+                        {% if state == 'success' %}
+                        <p>Added Success</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <form method="post" class="contact-form">
+                        {% csrf_token %}
+                        <fieldset class="col-md-4 col-sm-6">
+                            <input type="text" id="your-name" name="name"  placeholder="Author Name...">
+                        </fieldset>
+                        <fieldset class="col-md-4 col-sm-6">
+                            <input type="text" id="email" name="age" placeholder="Author Age...">
+                        </fieldset>
+                        <fieldset class="col-md-4 col-sm-12">
+                            <input type="text" id="your-subject" name="country"  placeholder="Author Country">
+                        </fieldset>
+                        <fieldset class="col-md-12 col-sm-12">
+                            <input type="submit" class="button big default" value="Add" style="width: 8em">
+                        </fieldset>
+                    </form>
+                </div> <!-- .contact-form -->
+            </div>
+        </div>
     </div>
-
-    {% if state == 'success' %}
-    <div style="width: 100%;">Added success!!!!!</div>
-    {% endif %}
-
-    <div class="add_author">
-        <form method="post" role="form">
-            {% csrf_token %}
-            <h2>Add author here</h2>
-
-            <div class="form-group">
-                <label for="id_name" class="col-md-3 control-label">Name：</label>
-                <div class="col-md-9">
-                    <input type="text" class="form-control" id="id_name" required name="name" autofocus>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="id_author" class="col-md-3 control-label">Age：</label>
-                <div class="col-md-9">
-                    <input type="text" class="form-control" required name="age" id="author_age">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="id_author" class="col-md-3 control-label">Country：</label>
-                <div class="col-md-9">
-                    <input type="text" class="form-control" required name="country" id="author_age">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-4 col-md-offset-4">
-                    <button class="btn btn btn-primary btn-block" type="submit">提交</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</body>
-</html>
+</div>
+{% endblock %}
