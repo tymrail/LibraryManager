@@ -24,7 +24,17 @@
     padding: 20px;
 }
 
-#footer{
-    padding-bottom: 2em;
+.book_details{
+    margin: 20px;
 }
+
+.a-button, .a-button:hover{
+    width: auto;
+    background: #5f6d7e;
+    color: white;
+    text-transform: uppercase;
+    border: 0;
+    padding: 1em 2em;
+}
+
 

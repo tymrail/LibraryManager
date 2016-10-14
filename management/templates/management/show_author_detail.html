@@ -1,12 +1,75 @@
 {% extends "management/basic.html" %}
-{% block title %}添加图书{% endblock %}
+{% block title %}Author Detail{% endblock %}
 
 {% block content %}
+
 <div class="main-content">
-    {{ state }}<br>
-    {{ author_content.author.name }} | {{ author_content.author.age }} | {{ author_content.author.country }}<br>
-    {% for book in author_content.book %}
-        {{ book.isbn }} | {{ book.title }} | {{ book.Price }}<br>
-    {% endfor %}
-</div>
+            <div class="fluid-container">
+
+                <div class="content-wrapper">
+                    <!-- PROJECTS -->
+                    {% if state == 'success' %}
+                    <div class="page-section" id="book_recent">
+                            <div style="padding-bottom: 4em; padding-top: 4em;">
+                                <h4 class="widget-title">
+                                    {{ author_content.author.name }}
+                                </h4>
+                                <p>{{ author_content.author.age }}岁 &nbsp; 国籍：{{ author_content.author.country }}</p>
+                            </div>
+                        <div class="row" id="book_row">
+                            <div class="book_detail">
+                                <div class="row">
+                                    <div class="col-md-3 book_right">Title</div>
+                                    <div class="col-md-2 book_usual">ISBN</div>
+                                    <div class="col-md-3 book_usual">Publisher</div>
+                                    <div class="col-md-2 book_left">Price</div>
+                                    <div class="col-md-2 book_usual">Publish Date</div>
+                                </div>
+                            </div>
+                        {% for book in author_content.book %}
+                            <div class="book_detail">
+                                <div class="row">
+                                    <div class="col-md-3 book_right">
+                                        <a href="/show_book_detail?book_isbn={{ book.isbn }}">
+                                            {{ book.title }}
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2 book_usual">{{ book.isbn }}</div>
+                                    <div class="col-md-3 book_usual">{{ book.publisher }}</div>
+                                    <div class="col-md-2 book_left">￥{{ book.Price }}</div>
+                                    <div class="col-md-2 book_usual">{{ book.publish_date | date:"Y-m-d" }}</div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="page-section" id="book_recent" style="padding-top: 20px">
+                        <div class="row">
+                            <div class="col-md-6 text-center">
+                                <a href="/change_author_detail/?author_id={{ author_content.author.author_id }}" class="a-button">Update</a>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <a href="/show_author_detail/?author_id={{ author_content.author.author_id }}&operate=delete" class="a-button">
+                                    Delete
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% elif state == 'delete success' %}
+                    <div class="page-section" id="book_recent" style="padding-top: 15em">
+                        <h4 class="widget-title">
+                            Delete Success
+                        </h4>
+                        <div class="row" style="margin-top: 3em">
+                            <div class="col-md-12 text-left">
+                                <a href="/" class="a-button">Home Page</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

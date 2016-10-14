@@ -1,14 +1,82 @@
 {% extends "management/basic.html" %}
-{% block title %}添加图书{% endblock %}
+{% block title %}Book Detail{% endblock %}
 {% block content %}
-<div class="main-content">
-    {{ state }}
 
-    <div>
-        {{ book_content.book.title }} | {{ book_content.book.Price }} | {{ book_content.book.publish_date }}<br>
-        {% for author in book_content.authors %}
-            {{ author.name }} | {{ author.age }} | {{ author.country }}<br>
-        {% endfor %}
+<div class="main-content">
+            <div class="fluid-container">
+
+                <div class="content-wrapper">
+                    <!-- PROJECTS -->
+                    {% if state == 'success' %}
+                    <div class="page-section" id="book_recent">
+                            <div style="padding-top: 4em;">
+                                <h4 class="widget-title">
+                                    {{ book_content.book.title }}
+                                </h4>
+                                <div class="book_details">
+                                    <div class="row">
+                                        <div class="col-md-3 book_left">ISBN:&nbsp;{{ book_content.book.isbn }}</div>
+                                        <div class="col-md-3 book_left">Publisher:&nbsp;{{ book_content.book.publisher }}</div>
+                                        <div class="col-md-3 book_left">Price:&nbsp;￥{{ book_content.book.Price }}</div>
+                                        <div class="col-md-3 book_left">Publish Date:&nbsp;{{ book_content.book.publish_date | date:"Y-m-d" }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        <hr>
+                        <div class="row" id="book_row">
+                            <div class="book_detail">
+                                <div class="row">
+                                    <div class="col-md-4 book_usual">Name</div>
+                                    <div class="col-md-4 book_usual">Age</div>
+                                    <div class="col-md-4 book_usual">Country</div>
+                                </div>
+                            </div>
+                        {% for author in book_content.authors %}
+                            <div class="book_detail">
+                                <div class="row">
+                                    <div class="col-md-4 book_usual">
+                                        <a href="/show_author_detail?author_id={{ author.author_id }}">
+                                            {{ author.name }}
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4 book_usual">{{ author.age }}</div>
+                                    <div class="col-md-4 book_usual">{{ author.country }}</div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="page-section" id="book_recent" style="padding-top: 20px">
+                        <div class="row">
+                            <div class="col-md-6 text-center">
+                                <a href="/change_book_detail/?isbn={{ book_content.book.isbn }}" class="a-button">
+                                    Update
+                                </a>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <a href="/show_book_detail/?book_isbn={{ book_content.book.isbn }}&operate=delete" class="a-button">
+                                    Delete
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% elif state == 'delete success' %}
+                        <div class="page-section" id="book_recent" style="padding-top: 15em">
+                            <h4 class="widget-title">
+                                Delete Success
+                            </h4>
+                            <div class="row" style="margin-top: 3em">
+                                <div class="col-md-12 text-left">
+                                    <a href="/" class="a-button">Home Page</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    {% endif %}
+
+
+            </div>
+        </div>
     </div>
-</div>
 {% endblock %}

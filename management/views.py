@@ -112,6 +112,7 @@ def change_book_detail(request):
     state = None
     book_content = None
     all_author = None
+    all_author_content = []
     if request.method == 'GET':
         isbn = request.GET.get('isbn')
         book = Book.objects.filter(isbn__exact=isbn)
@@ -143,11 +144,23 @@ def change_book_detail(request):
 
         all_author = Author.objects.all()
 
+        for a in all_author:
+            all_author_content.append({
+                'author': a,
+                'is_exist': 0,
+            })
+
+        for ath in all_author_content:
+            for old_ath in book_authors:
+                if ath['author'].author_id == old_ath.author_id:
+                    ath['is_exist'] = 1
+
     content = {
         'active_menu': 'change_book_detail',
         'state': state,
         'book_content': book_content,
         'all_author': all_author,
+        'all_author_content': all_author_content,
     }
 
     return render(request, 'management/change_book_detail.html', content)

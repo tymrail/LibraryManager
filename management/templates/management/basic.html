@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{{ active_menu }}</title>
+        <title>{% block title %}{% endblock %}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
@@ -16,6 +16,10 @@
         <style>
             .active{
                 background: #5F6D91;
+            }
+
+            *{
+                font-family: "Microsoft YaHei UI";
             }
         </style>
     </head>
